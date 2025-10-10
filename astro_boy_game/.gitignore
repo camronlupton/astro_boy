@@ -1,4 +1,4 @@
 .venv
-python-version
+.python-version
 pyproject.toml
 uv.lock

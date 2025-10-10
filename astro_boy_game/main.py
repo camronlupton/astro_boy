@@ -18,7 +18,14 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
     score = 0
+    hp = 3
+    
+    HeaderOne = pygame.font.SysFont("Arial", 20, bold = True)
+    HeaderTwo = pygame.font.SysFont("Arial", 20, bold = True)
 
+    def draw_text(text, font, text_col, x, y):
+        img = font.render(text, True, text_col)
+        screen.blit(img, (x, y))
     
     
 
@@ -45,11 +52,20 @@ def main():
         ## print(gameTick)
 
         screen.fill((0, 0, 0))
+        ##ADDED SCORE
+        draw_text(f"SCORE: {score}", HeaderOne, (150,150,150), 15, 15)
+        ##ADDED LIVES
+        draw_text(f"LIVES: {hp}", HeaderTwo, (150,20,20), 15, 40)
         updatable.update(dt)
         for entity in asteroids:
             if entity.hasColided(player):
-                print(f"You score {score} points!")
-                sys.exit("Game Over!")
+                if hp == 1:
+                    print(f"You score {score} points!")
+                    sys.exit("Game Over!")
+                else:
+                    ##LOSING LIVES
+                    hp -= 1 
+                    entity.kill()
 
         
         for entity in asteroids:
